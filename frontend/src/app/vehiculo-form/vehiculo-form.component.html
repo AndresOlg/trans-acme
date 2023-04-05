@@ -1,0 +1,26 @@
+<mat-card>
+  <mat-card-title>Formulario de registro de vehículo</mat-card-title>
+  <mat-card-content>
+    <form>
+      <mat-form-field>
+        <input matInput placeholder="Placa">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Motor">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Marca">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Color">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Tipo de vehículo">
+      </mat-form-field>
+    </form>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button color="primary" (click)="back()">Atrás</button>
+    <button mat-raised-button color="primary" (click)="submit()">Enviar</button>
+  </mat-card-actions>
+</mat-card>

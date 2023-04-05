@@ -1,0 +1,14 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Registro</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <div *ngIf="!showVehiculoForm">
+      <app-conductor-form (conductorFormSubmitted)="onConductorFormSubmitted($event)"></app-conductor-form>
+      <button mat-raised-button color="primary" (click)="showVehiculoForm = true">Siguiente</button>
+    </div>
+    <div *ngIf="showVehiculoForm">
+      <app-vehiculo-form (vehiculoFormSubmitted)="onVehiculoFormSubmitted($event)"></app-vehiculo-form>
+      <button mat-raised-button color="primary" (click)="onPreviousStepClicked()">Anterior</button>
+      <button mat-raised-button color="primary" (click)="onCompleteClicked()">Completar</button>
+    </div
