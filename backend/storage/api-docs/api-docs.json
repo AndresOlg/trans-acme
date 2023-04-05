@@ -1,0 +1,303 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API vehiculos acme",
+        "description": "API para vehiculos de transporte acme",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/vehiculos": {
+            "get": {
+                "summary": "Get a list of all vehicles",
+                "description": "Display a listing of the resource.",
+                "operationId": "149b9ba714037a3dc86c8d245646f6fa",
+                "responses": {
+                    "200": {
+                        "description": "List of all vehicles"
+                    }
+                }
+            },
+            "post": {
+                "summary": "Crear un nuevo vehículo",
+                "description": "Store a newly created resource in storage.",
+                "operationId": "04854b3c96cbe81512a35a4340be89d6",
+                "requestBody": {
+                    "description": "Datos requeridos para crear un nuevo vehículo.",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "placa": {
+                                        "type": "string",
+                                        "maxLength": 50,
+                                        "example": "ABC-123"
+                                    },
+                                    "motor": {
+                                        "type": "string",
+                                        "maxLength": 256,
+                                        "example": "12345",
+                                        "nullable": true
+                                    },
+                                    "marca": {
+                                        "type": "string",
+                                        "maxLength": 50,
+                                        "example": "Toyota"
+                                    },
+                                    "color": {
+                                        "type": "string",
+                                        "maxLength": 50,
+                                        "example": "Rojo",
+                                        "nullable": true
+                                    },
+                                    "tipo_vehiculo": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "id_conductor": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Vehículo creado exitosamente"
+                    },
+                    "422": {
+                        "description": "Error de validación",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The given data was invalid."
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": {
+                                                "placa": [
+                                                    "The placa field is required."
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/vehiculos/{vehiculo}": {
+            "get": {
+                "summary": "Get the details of a specific vehicle by ID",
+                "description": "Display the specified resource.",
+                "operationId": "7eefb32c25ab6e190f17032cd98e5ab1",
+                "parameters": [
+                    {
+                        "name": "vehiculo",
+                        "in": "path",
+                        "description": "ID of the vehicle to retrieve",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Details of the specified vehicle"
+                    }
+                }
+            },
+            "put": {
+                "summary": "Update an existing vehicle",
+                "description": "Update the specified resource in storage.",
+                "operationId": "6e377e05ea573a46d58a025423815a1e",
+                "parameters": [
+                    {
+                        "name": "vehiculo",
+                        "in": "path",
+                        "description": "ID of the vehicle to update",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "placa": {
+                                        "type": "string",
+                                        "maxLength": 50,
+                                        "example": "ABC-123"
+                                    },
+                                    "motor": {
+                                        "type": "string",
+                                        "maxLength": 256,
+                                        "example": "12345",
+                                        "nullable": true
+                                    },
+                                    "marca": {
+                                        "type": "string",
+                                        "maxLength": 50,
+                                        "example": "Toyota"
+                                    },
+                                    "color": {
+                                        "type": "string",
+                                        "maxLength": 50,
+                                        "example": "Rojo",
+                                        "nullable": true
+                                    },
+                                    "tipo_vehiculo": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "id_conductor": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "The updated vehicle"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Vehicles"
+                ],
+                "summary": "Delete a vehicle",
+                "description": "Delete an existing vehicle from the database",
+                "operationId": "eliminarVehiculo",
+                "parameters": [
+                    {
+                        "name": "vehiculo",
+                        "in": "path",
+                        "description": "ID of the vehicle to delete",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Vehicle deleted successfully"
+                    },
+                    "404": {
+                        "description": "The specified vehicle was not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/vehiculos/filtrar": {
+            "get": {
+                "tags": [
+                    "Vehiculos"
+                ],
+                "summary": "Obtener vehículos por tipo y/o marca.",
+                "description": "Obtiene vehículos filtrándolos por su tipo y/o marca.",
+                "operationId": "getByTypeOrBrand",
+                "parameters": [
+                    {
+                        "name": "tipo",
+                        "in": "query",
+                        "description": "Tipo del vehículo por el que filtrar.",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "marca",
+                        "in": "query",
+                        "description": "Marca del vehículo por la que filtrar.",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Operación exitosa"
+                    },
+                    "400": {
+                        "description": "Solicitud incorrecta"
+                    }
+                }
+            }
+        },
+        "/api/vehiculos/driver": {
+            "get": {
+                "tags": [
+                    "Vehiculos"
+                ],
+                "summary": "Obtener vehículos por ID de conductor",
+                "description": "Obtiene los vehículos asociados al ID de conductor proporcionado.",
+                "operationId": "getByDriverId",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "ID del conductor",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "404": {
+                        "description": "Conductor no encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "No se encontró el conductor con el ID proporcionado."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
