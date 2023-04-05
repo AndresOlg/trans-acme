@@ -1,0 +1,49 @@
+{
+    "version": "2.0.0",
+    "configurations": [
+        {
+            "name": "Launch-Backend",
+            "type": "php",
+            "request": "launch",
+            "program": "${workspaceFolder}/backend/artisan",
+            "args": [
+                "serve"
+            ],
+            "runtimeArgs": [
+                "-dxdebug.mode=debug",
+                "-dxdebug.start_with_request=yes",
+                "-dxdebug.client_port=9080",
+                "-d",
+                "variables_order=EGPCS"
+            ],
+            "cwd": "${workspaceFolder}",
+            "env": {
+                "APP_ENV": "local",
+                "ENV_FILE_PATH": "${workspaceFolder}/backend/.env.${APP_ENV}",
+                "ENV_EXAMPLE_FILE": "${workspaceFolder}/backend/.env.example"
+            }
+        },
+        {
+            "name": "Launch-Frontend",
+            "type": "node",
+            "request": "launch",
+            "cwd": "${workspaceFolder}/frontend",
+            "console": "externalTerminal",
+            "preLaunchTask": "npm: start - frontend",
+            "program": "${workspaceFolder}/frontend",
+            "sourceMapPathOverrides": {
+                "webpack:///./src/*": "${webRoot}/*"
+            },
+        }
+    ],
+    "compounds": [
+        {
+            "name": "Launch Backend and Frontend",
+            "configurations": [
+                "Launch-Backend",
+                "Launch-Frontend"
+            ],
+            "stopAll": true
+        }
+    ]
+}
